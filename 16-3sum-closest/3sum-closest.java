@@ -2,7 +2,6 @@ class Solution {
   public int threeSumClosest(int[] nums, int target) {
     sort(nums, 0, nums.length - 1);
 
-    // Handle case with all positive elements and positive target
     if (nums[0] >= 0 && target > nums[nums.length - 1] * 3) {
       return nums[nums.length - 1] + nums[nums.length - 2] + nums[nums.length - 3];
     }
