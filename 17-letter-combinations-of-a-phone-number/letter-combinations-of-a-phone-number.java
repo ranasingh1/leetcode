@@ -1,4 +1,18 @@
 class Solution {
+
+private static final String[] KEYPAD = {
+        "",     // 0 (no mapping)
+        "",     // 1 (no mapping)
+        "abc",  // 2
+        "def",  // 3
+        "ghi",  // 4
+        "jkl",  // 5
+        "mno",  // 6
+        "pqrs", // 7
+        "tuv",  // 8
+        "wxyz"  // 9
+    };
+
     public List<String> letterCombinations(String digits) {
             if(digits.isEmpty()){
    return new ArrayList<>();
@@ -15,33 +29,25 @@ return list;
 
 
 
-public static List<String> solve(String ans, String ip) {
-        
-        if(ip.isEmpty()) {
+ private static List<String> solve(String ans, String ip) {
+        // Base case: if the input string is empty, return the accumulated answer
+        if (ip.isEmpty()) {
             ArrayList<String> list = new ArrayList<>();
             list.add(ans);
             return list;
         }
-        
+
         int digit = ip.charAt(0) - '0';
-        int i=(digit-2)*3;
-        if(digit > 7) {
-            i+=1;
-        }
-        int len = i+3;
-        if(digit == 7 || digit == 9) {
-            len+=1;
-        }
-        
+        String letters = KEYPAD[digit];  // Retrieve the corresponding letters
+
         ArrayList<String> list = new ArrayList<>();
-                
-        for(; i<len; i++) {
-            char ch = (char)('a' + i);
-            list.addAll(solve(ans+ch, ip.substring(1)));
+        // Recursive case: append each letter and call solve on the remaining string
+        for (char ch : letters.toCharArray()) {
+            list.addAll(solve(ans + ch, ip.substring(1)));
         }
-        
+
         return list;
-}
+    }
         
     
 
