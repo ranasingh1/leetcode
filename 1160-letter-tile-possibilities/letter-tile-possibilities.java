@@ -1,21 +1,16 @@
-class Solution {
-     public int numTilePossibilities(String tiles) {
-        Set<String> result = new HashSet<>();
-        boolean[] visited = new boolean[tiles.length()];
-        backtrack(tiles, "", visited, result);
-        return result.size();
+public class Solution {
+    public int numTilePossibilities(String tiles) {
+        Set<String> uniqueSequences = new HashSet<>();
+        generateSequences("", tiles, uniqueSequences);
+        return uniqueSequences.size();
     }
 
-    private void backtrack(String tiles, String current, boolean[] visited, Set<String> result) {
-        if (!current.isEmpty()) {
-            result.add(current);
+    private void generateSequences(String p, String up, Set<String> uniqueSequences) {
+        if (!p.isEmpty()) {
+            uniqueSequences.add(p);
         }
-        for (int i = 0; i < tiles.length(); i++) {
-            if (visited[i]) continue;
-            // Pick the tile
-            visited[i] = true;
-            backtrack(tiles, current + tiles.charAt(i), visited, result);
-            // Un-pick the tile (backtrack)
-            visited[i] = false;
+        for (int i = 0; i < up.length(); i++) {
+            generateSequences(p + up.charAt(i), up.substring(0, i) + up.substring(i + 1), uniqueSequences);
         }
-    }}
+    }
+}
