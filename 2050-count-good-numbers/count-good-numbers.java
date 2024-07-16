@@ -6,7 +6,7 @@ class Solution {
         long odd = n/2;
         long even = (n+1)/2;
         return (int)(pow(5,even) * pow(4,odd) % MOD);
-    }
+    } 
 
      public long pow(long x, long n){
          if(n==0){
