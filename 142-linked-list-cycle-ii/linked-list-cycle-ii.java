@@ -11,27 +11,38 @@
  */
 public class Solution {
     public ListNode detectCycle(ListNode head) {
-        if (head == null || head.next == null) {
-            return null;
-        }
-
+        int length = 0;
         ListNode fast = head;
         ListNode slow = head;
 
+        // Step 1: Detect if a cycle exists
         while (fast != null && fast.next != null) {
             fast = fast.next.next;
             slow = slow.next;
-            
+
             if (fast == slow) {
-                ListNode pointer1 = head;
-                ListNode pointer2 = slow;
-                
-                while (pointer1 != pointer2) {
-                    pointer1 = pointer1.next;
-                    pointer2 = pointer2.next;
+                // Cycle detected, calculate the cycle's length
+                ListNode temp = slow;
+                do {
+                    temp = temp.next;
+                    length++;
+                } while (temp != slow);
+
+                // Step 2: Move one pointer ahead by 'length' steps
+                ListNode f = head;
+                ListNode s = head;
+                while (length > 0) {
+                    s = s.next;
+                    length--;
                 }
-                
-                return pointer1; // The start of the cycle
+
+                // Step 3: Move both pointers until they meet at the start of the cycle
+                while (f != s) {
+                    f = f.next;
+                    s = s.next;
+                }
+
+                return f; // The start of the cycle
             }
         }
 
