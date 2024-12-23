@@ -10,39 +10,28 @@
  */
 class Solution {
     public ListNode swapNodes(ListNode head, int k) {
-        if(head==null){
-            return head;
+        ListNode fast = head;
+        ListNode slow = head;
+        ListNode first, second;
+
+        for(int i = 0 ; i<k-1; i++){
+            fast = fast.next;
         }
-    int length = 1;
-    ListNode current = head;
-    while(current!=null){
-        current = current.next;
-        length++; 
+        first = fast;
+
+        while(fast.next!=null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        second = slow;
+
+        int temp;
+        temp = first.val;
+        first.val = second.val;
+        second.val = temp;
+
+        return head;
+        
     }
-
-    int indexFromEnd = length-k;
-       System.out.println(indexFromEnd);
-
-
-   ListNode fn = getIndex(k, head);
-   System.out.println(fn.val);
-   ListNode sn = getIndex(indexFromEnd, head);
-   System.out.println(sn.val);
-   int temp = fn.val;
-   fn.val = sn.val;
-   sn.val = temp;
-
-    return head;
-    }
-
-    private ListNode getIndex(int index, ListNode head){
-            ListNode current = head;
-          for(int i = 1; i<index; i++){
-            current = current.next;
-          }
-
-          return current;
-
-    }
-
 }
