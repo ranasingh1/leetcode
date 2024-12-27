@@ -10,45 +10,36 @@
  */
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
- if (head == null || head.next == null || k == 0) {
-            return head; 
+        if (head == null || head.next == null || k == 0) {
+            return head; // Handle edge cases
         }
 
-        int length = length(head); 
-        k = k % length; 
-        if (k == 0) {
-            return head; 
-        }
-
-        int rotateAt = length - k;
-        ListNode temp = head;
-        ListNode lastNode = get(length-1, head);
-        ListNode rotateNode = get(rotateAt-1, head);
-        System.out.println(rotateNode.val);
-        ListNode newHead = get(rotateAt, head);
-                System.out.println(newHead.val);
-
-        rotateNode.next = null;
-        lastNode.next = head;
-        head = newHead;
-        return head;
-    }
-
-    public int length(ListNode head){
-        ListNode node = head;
+        // Step 1: Calculate the length of the list and find the tail
+        ListNode tail = head;
         int length = 1;
-        while(node.next!=null){
-            node = node.next;
+        while (tail.next != null) {
+            tail = tail.next;
             length++;
         }
-        return length;
-    }
 
-    public ListNode get(int index, ListNode head){
-        ListNode temp = head;
-         for(int i =0 ; i<index; i++){
-            temp = temp.next;         
+        // Step 2: Adjust k
+        k = k % length;
+        if (k == 0) {
+            return head; // No rotation needed
         }
-        return temp;
+
+        // Step 3: Find the new tail and head
+        int newTailIndex = length - k - 1;
+        ListNode newTail = head;
+        for (int i = 0; i < newTailIndex; i++) {
+            newTail = newTail.next;
+        }
+        ListNode newHead = newTail.next;
+
+        // Step 4: Rotate the list
+        newTail.next = null;
+        tail.next = head;
+
+        return newHead;
     }
 }
