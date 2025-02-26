@@ -1,11 +1,9 @@
 class CustomStack {
 
-    private int D_S;
     protected int[] data;
     int ptr = -1;
 
     public CustomStack(int maxSize) {
-        this.D_S = maxSize;
         this.data = new int[maxSize];
 
     }
